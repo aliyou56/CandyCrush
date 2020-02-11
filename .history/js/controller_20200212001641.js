@@ -18,8 +18,9 @@ class Controller {
 
         this.isFirstClick = true
         this.selectedPosition = {}
+        this.startScoring = false
 
-        this.gameEventHandler(this.context) // start the game
+        setTimeout(() => { this.gameEventHandler(this.context), 1000 })
     }
 
     /**
@@ -94,7 +95,7 @@ class Controller {
                     isGridNotFull = true
                 }
             } 
-            // console.log("[controller.gameEventHandler]: isGridNotFull=", isGridNotFull)
+            console.log("[controller.gameEventHandler]: isGridNotFull=", isGridNotFull)
             if(isGridNotFull) {
                 this.view.syncWithModel(this.model)
                 this.repackGrid(context_)
@@ -102,21 +103,17 @@ class Controller {
             } else {
                 if(initializing) {
                     initializing = false
-                    this.model.startScoring = true
+                    this.startScoring = true
                 }
                 document.addEventListener("click", onclick)
             }
-
+            
         }
     }
 
     // fait tomber et rebouche les trous en créant de nouveaux bonbons
-    /**
-     * 
-     * @param {*} context_ 
-     */
     repackGrid(context_) { 
-        // console.log("[Controller.repackGrid]")
+        console.log("[Controller.repackGrid]")
         for(let col=0; col<this.model.grid[0].length; col++) {
             let row = 0
             while(row < this.model.grid.length && this.model.grid[row][col] === -1) {
@@ -128,12 +125,8 @@ class Controller {
     }
 
     // repack une colonne: donne faux si pas besoin
-    /**
-     * 
-     * @param {*} col 
-     */
     repackColumn(col) { 
-        // console.log("[Controller.repackColumn]")
+        console.log("[Controller.repackColumn]")
         let lastEmptySpriteIdx = this.model.grid.length-1
         while(lastEmptySpriteIdx >= 0 && this.model.grid[lastEmptySpriteIdx][col] != -1) {
             lastEmptySpriteIdx--
@@ -142,6 +135,7 @@ class Controller {
             for(let row=lastEmptySpriteIdx-1; row>=0; row--) {
                 if(this.model.grid[row][col] != -1) {
                     this.model.swap(row, col, lastEmptySpriteIdx, col);
+                    //this.view.swap(row, col, lastEmptySpriteIdx, col)
                     lastEmptySpriteIdx--
                 }
             }

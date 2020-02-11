@@ -25,7 +25,7 @@ class Sprite {
         this.toY = 0
 
         this._updateOffset = this.width
-        this._shrinkStep = 2
+        this._shrinkStep = 4
     }
 
     /**
@@ -56,6 +56,16 @@ class Sprite {
         }
     }
 
+    // 
+    // animate(context_) {
+    //     // console.log("[Sprite.animate] ")
+    //     this.update()
+    //     this.draw(context_)
+    //     if(this.isMoving()) {
+    //         setTimeout(animate, 100)
+    //     }
+    // }
+
     /**
      * Update the sprite' position (x, y) with a fixed offset +/- _updateOffset
      * when it's current position is different from the target position (toX, toY)
@@ -74,12 +84,12 @@ class Sprite {
      */
     shrink() {
         if(this.width > 0 && this.height > 0) {
-            // console.log("{Sprite.shrink]: in -> x=",this.x," y=", this.y, " w=", this.width, " h=", this.height)
-            this.x += this._shrinkStep/2
-            this.y += this._shrinkStep/2
-            this.width -= this._shrinkStep
-            this.height -= this._shrinkStep
-            // console.log("{Sprite.shrink]: out -> x=",this.x," y=", this.y, " w=", this.width, " h=", this.height)
+        console.log("{Sprite.shrink]: in -> x=",this.x," y=", this.y, " w=", this.width, " h=", this.height)
+        this.x += this._shrinkStep/2
+        this.y += this._shrinkStep/2
+        this.width -= this._shrinkStep
+        this.height -= this._shrinkStep
+        console.log("{Sprite.shrink]: out -> x=",this.x," y=", this.y, " w=", this.width, " h=", this.height)
         }
     }
 

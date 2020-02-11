@@ -25,7 +25,7 @@ class Sprite {
         this.toY = 0
 
         this._updateOffset = this.width
-        this._shrinkStep = 2
+        this._shrinkStep = 4
     }
 
     /**

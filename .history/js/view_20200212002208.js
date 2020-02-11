@@ -84,7 +84,7 @@ class View {
                 }
             }
         }
-        // console.log("[View.isShrinking]: false")
+        console.log("[View.isShrinking]: false")
         return false;
     }
 
@@ -93,7 +93,7 @@ class View {
      * @param {*} removedCandies_ 
      */
     shrink(removedCandies_) {
-        // console.log("[View.shrink]: ")
+        console.log("[View.shrink]: ")
         for(let rc of removedCandies_) {
             var [row, col, nb_elt, orientation] = rc
             if(orientation === 'h') {
@@ -152,7 +152,7 @@ class View {
      * @param {*} context_ 
      */
     drawAll(context_) {
-        // console.log("[View.drawAll]")
+        console.log("[View.drawAll]")
         context_.fillStyle = "white"
         context_.fillRect(0, 0, context.width, context.height);
         //context.clearRect(0, 0, context.width, context.height);

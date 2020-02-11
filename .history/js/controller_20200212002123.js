@@ -18,8 +18,9 @@ class Controller {
 
         this.isFirstClick = true
         this.selectedPosition = {}
+        this.startScoring = false
 
-        this.gameEventHandler(this.context) // start the game
+        setTimeout(() => { this.gameEventHandler(this.context), 1000 })
     }
 
     /**
@@ -102,7 +103,7 @@ class Controller {
             } else {
                 if(initializing) {
                     initializing = false
-                    this.model.startScoring = true
+                    this.startScoring = true
                 }
                 document.addEventListener("click", onclick)
             }

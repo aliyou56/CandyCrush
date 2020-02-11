@@ -14,7 +14,7 @@ class View {
      * @param {*} model The model with which to synchronize.
      */
     syncWithModel(model) {
-        // console.log("[View.syncWithModel]")
+        console.log("[View.syncWithModel]")
         if(this.grid.length == 0) {
             this.grid = new Array(model.grid.length)
         }
@@ -34,15 +34,16 @@ class View {
      * @param {*} context_ 
      * @param {*} callback_ 
      */
-    animate(context_) {
+    animate(context_/*, callback_*/) {
         // console.log("[View.animate]")
         this.updateAll()
         this.drawAll(context_)
         if(this.isMoving()) {
             var that = this
-            setTimeout(() => {that.animate(context_)}, 100)
+            setTimeout(() => {that.animate(context_/*, callback_*/)}, 200)
         } else {
             this.controller.gameEventHandler(context_)
+            //that.callback_(context_)
         }
     }
     
@@ -50,12 +51,11 @@ class View {
      * 
      */
     shrinkAnimation(context_, removedCandies_) {
-        // console.log("[View.shrinkAnimation]: ", removedCandies_)
         this.shrink(removedCandies_)
         this.drawAll(context_)
         if(this.isShrinking(removedCandies_)) {
             let that = this
-            setTimeout(() => { that.shrinkAnimation(context_, removedCandies_), 1000 } )
+            setTimeout(() => { that.shrinkAnimation(context_, removedCandies_), 100 } )
         } else {
             this.controller.gameEventHandler(context_)
         }
@@ -66,25 +66,22 @@ class View {
      * @param {*} removedCandies_ 
      */
     isShrinking(removedCandies_) {
-        for(let rc of removedCandies_) {
+        for(rc of removedCandies_) {
             var [row, col, nb_elt, orientation] = rc
             if(orientation === 'h') {
                 for(let i=0; i<nb_elt; i++) {
                     if(this.grid[row][col+i].isShrinking()) {
-                        // console.log("[View.isShrinking]: true")
                         return true
                     }
                 }
             } else {
                 for(let i=0; i<nb_elt; i++) {
-                    if(this.grid[row+i][col].isShrinking()) {
-                        // console.log("[View.isShrinking]: true")
+                    if(this.grid[row+i][col+i].isShrinking()) {
                         return true
                     }
                 }
             }
         }
-        // console.log("[View.isShrinking]: false")
         return false;
     }
 
@@ -93,7 +90,6 @@ class View {
      * @param {*} removedCandies_ 
      */
     shrink(removedCandies_) {
-        // console.log("[View.shrink]: ")
         for(let rc of removedCandies_) {
             var [row, col, nb_elt, orientation] = rc
             if(orientation === 'h') {
@@ -102,7 +98,7 @@ class View {
                 }
             } else {
                 for(let i=0; i<nb_elt; i++) {
-                    this.grid[row+i][col].shrink()
+                    this.grid[row+i][col+i].shrink()
                 }
             }
         }
@@ -152,7 +148,7 @@ class View {
      * @param {*} context_ 
      */
     drawAll(context_) {
-        // console.log("[View.drawAll]")
+        console.log("[View.drawAll]")
         context_.fillStyle = "white"
         context_.fillRect(0, 0, context.width, context.height);
         //context.clearRect(0, 0, context.width, context.height);

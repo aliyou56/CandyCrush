@@ -19,7 +19,7 @@ class Controller {
         this.isFirstClick = true
         this.selectedPosition = {}
 
-        this.gameEventHandler(this.context) // start the game
+        setTimeout(() => { this.gameEventHandler(this.context), 1000 })
     }
 
     /**

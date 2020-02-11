@@ -95,12 +95,12 @@ class Model {
                     k2++; counterVertical++
                 }
                 if(counterHorizontal >= 3 || counterVertical >= 3) {
-                    // console.log("[Model.isAlignmentExist]: Yes")
+                    console.log("[Model.isAlignmentExist]: Yes")
                     return true
                 }
             }
         }
-        // console.log("[Model.isAlignmentExist] : Nope")
+        console.log("[Model.isAlignmentExist] : Nope")
         return false
     }
 
@@ -138,7 +138,7 @@ class Model {
                 }
             }
         }
-        // console.log("[Model.allAlignments]: ", result)
+        console.log("[Model.allAlignments]: ", result)
         return result
     }
 }

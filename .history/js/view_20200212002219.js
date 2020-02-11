@@ -152,7 +152,7 @@ class View {
      * @param {*} context_ 
      */
     drawAll(context_) {
-        // console.log("[View.drawAll]")
+        console.log("[View.drawAll]")
         context_.fillStyle = "white"
         context_.fillRect(0, 0, context.width, context.height);
         //context.clearRect(0, 0, context.width, context.height);

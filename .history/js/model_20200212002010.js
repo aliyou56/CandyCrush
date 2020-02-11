@@ -138,7 +138,7 @@ class Model {
                 }
             }
         }
-        // console.log("[Model.allAlignments]: ", result)
+        console.log("[Model.allAlignments]: ", result)
         return result
     }
 }

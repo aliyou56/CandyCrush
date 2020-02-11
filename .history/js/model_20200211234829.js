@@ -2,20 +2,13 @@
 // 
 class Model {
 
-    /**
-     * 
-     * @param {*} gridSize_ 
-     */
+    // 
     constructor(gridSize_) {
         this.score = 0
         this.gridSize = gridSize_
         this.grid = this.init()
-        this.startScoring = false
     }
 
-    /**
-     * 
-     */
     init() {
         // console.log("Model -> init")
         var result = new Array()
@@ -30,20 +23,10 @@ class Model {
         return result
     }
 
-    /**
-     * 
-     */
     getRandom() {
         return Math.floor((Math.random() * 5) +1)
     }
 
-    /**
-     * 
-     * @param {*} x1_ 
-     * @param {*} y1_ 
-     * @param {*} x2_ 
-     * @param {*} y2_ 
-     */
     swap(x1_, y1_, x2_, y2_) {
         // console.log("[Model.swap]: I'm swapping -> (",x1_,",",y1_,") by (",x2_,",",y2_,")")
         let tmp = this.grid[x1_][y1_]
@@ -68,8 +51,7 @@ class Model {
                         this.grid[row+i][col] = -1
                     }
                 }
-                // The scoring starts after the initialization (first stabilization)
-                if(this.startScoring) this.score += count
+                this.score += count
             }
             // console.log("[Model.explode]: result -> ", this.grid)
             console.log("[Model.explode]: I made an explosion, boom !! score -> ", this.score)
@@ -95,12 +77,12 @@ class Model {
                     k2++; counterVertical++
                 }
                 if(counterHorizontal >= 3 || counterVertical >= 3) {
-                    // console.log("[Model.isAlignmentExist]: Yes")
+                    console.log("[Model.isAlignmentExist]: Yes")
                     return true
                 }
             }
         }
-        // console.log("[Model.isAlignmentExist] : Nope")
+        console.log("[Model.isAlignmentExist] : Nope")
         return false
     }
 
@@ -138,7 +120,7 @@ class Model {
                 }
             }
         }
-        // console.log("[Model.allAlignments]: ", result)
+        console.log("[Model.allAlignments]: ", result)
         return result
     }
 }

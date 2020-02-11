@@ -31,6 +31,7 @@ window.onload = function() {
         if(nbImages == 0) {
             clearInterval(timerID)
             game = new Controller(10, 50, context)
+            //game.gameEventHandler(context)
         }
     }, 0)
 

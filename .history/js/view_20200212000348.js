@@ -14,7 +14,7 @@ class View {
      * @param {*} model The model with which to synchronize.
      */
     syncWithModel(model) {
-        // console.log("[View.syncWithModel]")
+        console.log("[View.syncWithModel]")
         if(this.grid.length == 0) {
             this.grid = new Array(model.grid.length)
         }
@@ -50,7 +50,7 @@ class View {
      * 
      */
     shrinkAnimation(context_, removedCandies_) {
-        // console.log("[View.shrinkAnimation]: ", removedCandies_)
+        console.log("[View.shrinkAnimation]: ", removedCandies_)
         this.shrink(removedCandies_)
         this.drawAll(context_)
         if(this.isShrinking(removedCandies_)) {
@@ -71,20 +71,20 @@ class View {
             if(orientation === 'h') {
                 for(let i=0; i<nb_elt; i++) {
                     if(this.grid[row][col+i].isShrinking()) {
-                        // console.log("[View.isShrinking]: true")
+                        console.log("[View.isShrinking]: true")
                         return true
                     }
                 }
             } else {
                 for(let i=0; i<nb_elt; i++) {
                     if(this.grid[row+i][col].isShrinking()) {
-                        // console.log("[View.isShrinking]: true")
+                        console.log("[View.isShrinking]: true")
                         return true
                     }
                 }
             }
         }
-        // console.log("[View.isShrinking]: false")
+        console.log("[View.isShrinking]: false")
         return false;
     }
 
@@ -93,7 +93,7 @@ class View {
      * @param {*} removedCandies_ 
      */
     shrink(removedCandies_) {
-        // console.log("[View.shrink]: ")
+        console.log("[View.shrink]: ")
         for(let rc of removedCandies_) {
             var [row, col, nb_elt, orientation] = rc
             if(orientation === 'h') {
@@ -152,7 +152,7 @@ class View {
      * @param {*} context_ 
      */
     drawAll(context_) {
-        // console.log("[View.drawAll]")
+        console.log("[View.drawAll]")
         context_.fillStyle = "white"
         context_.fillRect(0, 0, context.width, context.height);
         //context.clearRect(0, 0, context.width, context.height);

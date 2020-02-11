@@ -4,7 +4,6 @@ window.onload = function() {
     // global variable
     canvas = document.getElementById("canvas")
     context = canvas.getContext("2d");
-    initializing = true
     // context.width = canvas.width;
     // context.height = canvas.height;
 
@@ -31,6 +30,7 @@ window.onload = function() {
         if(nbImages == 0) {
             clearInterval(timerID)
             game = new Controller(10, 50, context)
+            //game.gameEventHandler(context)
         }
     }, 0)
 

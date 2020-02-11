@@ -1,10 +1,10 @@
 
 window.onload = function() {
 
+    stabilize = false
     // global variable
     canvas = document.getElementById("canvas")
     context = canvas.getContext("2d");
-    initializing = true
     // context.width = canvas.width;
     // context.height = canvas.height;
 
@@ -30,7 +30,8 @@ window.onload = function() {
     var timerID = setInterval(function() {
         if(nbImages == 0) {
             clearInterval(timerID)
-            game = new Controller(10, 50, context)
+            game = new Controller(10, 50)
+            game.gameEventHandler(context)
         }
     }, 0)
 

@@ -25,11 +25,11 @@ class Sprite {
         this.toY = 0
 
         this._updateOffset = this.width
-        this._shrinkStep = 2
+        this._shrinkStep = 10
     }
 
     /**
-     * Position the sprite at the given position (x_, y_)
+     * Position the sprite at the given position (x_, y_) on the grid
      * @param {*} x_ 
      * @param {*} y_ 
      */
@@ -41,7 +41,7 @@ class Sprite {
 
     /**
      * Draw the sprite at it's current position (x, y) in the given context.
-     * @param {*} context_ The context on which to draw 
+     * @param {*} context_ 
      */
     draw(context_) {
         // console.log("[Sprite.draw] ")
@@ -55,6 +55,16 @@ class Sprite {
             context_.drawImage(images[this.obj-1], this.x, this.y, this.width, this.height);
         }
     }
+
+    // 
+    // animate(context_) {
+    //     // console.log("[Sprite.animate] ")
+    //     this.update()
+    //     this.draw(context_)
+    //     if(this.isMoving()) {
+    //         setTimeout(animate, 100)
+    //     }
+    // }
 
     /**
      * Update the sprite' position (x, y) with a fixed offset +/- _updateOffset
@@ -73,14 +83,10 @@ class Sprite {
      * Reduces the sprite size with a fixed step: _shrinkStep.
      */
     shrink() {
-        if(this.width > 0 && this.height > 0) {
-            // console.log("{Sprite.shrink]: in -> x=",this.x," y=", this.y, " w=", this.width, " h=", this.height)
-            this.x += this._shrinkStep/2
-            this.y += this._shrinkStep/2
-            this.width -= this._shrinkStep
-            this.height -= this._shrinkStep
-            // console.log("{Sprite.shrink]: out -> x=",this.x," y=", this.y, " w=", this.width, " h=", this.height)
-        }
+        this.x = this.x + this._shrinkStep/2
+        this.y = this.y + this._shrinkStep/2
+        this.width = this.width - this._shrinkStep
+        this.height = this.height - this._shrinkStep
     }
 
     /**
@@ -96,7 +102,7 @@ class Sprite {
      * is not greater than 0), false otherwise.
      */
     isShrinking() {
-        return ( //(this.x != this.toX || this.y != this.toY) &&
+        return !( (this.x != this.toX || this.y != this.toY) &&
                   this.width > 0 && this.height > 0 
                 )
     }
