@@ -66,10 +66,6 @@ class Controller {
         }
     }
 
-    updateScore() {
-        document.getElementById("score").innerHTML = "Score: " + this.model.score
-    }
-    
     /** est appelé automatiquement quand la vue s'est mise à jour avec l'animation
      * Quand la vue s'est stabilisée, ca veut dire que l'animation en cours
      * est terminée et que la vue reflète bien le modèle
@@ -85,6 +81,7 @@ class Controller {
             let spriteToBeRemoved = this.model.allAlignments()
             if(spriteToBeRemoved.length > 0) {
                 this.view.shrinkAnimation(context_, spriteToBeRemoved)
+                document.getElementById("score").innerHTML = "Score: " + this.model.score
                 this.model.explode(spriteToBeRemoved)
             } else {
                 this.view.syncWithModel(this.model)

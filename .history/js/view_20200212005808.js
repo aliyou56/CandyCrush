@@ -53,7 +53,7 @@ class View {
         // console.log("[View.shrinkAnimation]: ", removedCandies_)
         this.shrink(removedCandies_)
         this.drawAll(context_)
-        this.controller.updateScore()
+        document.getElementById("score").innerHTML = "Score: " + this.model.score
         if(this.isShrinking(removedCandies_)) {
             let that = this
             setTimeout(() => { that.shrinkAnimation(context_, removedCandies_), 1000 } )
