@@ -170,7 +170,7 @@ class View {
     }
 
     /**
-     * update all the candies (in movement)
+     * 
      */
     updateAll() {
         // console.log("[View.updateAll]")

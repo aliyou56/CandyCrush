@@ -85,7 +85,7 @@ class Controller {
      */
     gameEventHandler(context_) {
         // console.log("[controller.gameEventHandler]")
-        document.removeEventListener("click", onClick)
+        document.removeEventListener("click", onclick)
 
         if(this.model.isAlignmentExist()) {
 
@@ -115,7 +115,7 @@ class Controller {
                     initializing = false
                     this.model.startScoring = true
                 }
-                document.addEventListener("click", onClick)
+                document.addEventListener("click", onclick)
             }
 
         }

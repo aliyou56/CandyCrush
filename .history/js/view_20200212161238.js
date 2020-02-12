@@ -1,13 +1,8 @@
 /**
- * The view of the candy crush game.
+ * 
  */
 class View {
 
-    /**
-     * Constructor with the size of the sprite and the controller
-     * @param {*} spriteSize_ The size of the sprite
-     * @param {*} controller_ The controller (allow to callback the gameEventsHandler)
-     */
     constructor(spriteSize_, controller_) {
         this.spriteSize = spriteSize_
         this.controller = controller_
@@ -35,10 +30,11 @@ class View {
     }
 
     /**
-     * Animate all candies in the grid. When there is no more animation, it calls the
+     * Animate the candies. When there is no more animation call the
      * gameEventsHandler from the Controller.
      * 
-     * @param {*} context_ The context on which to draw
+     * @param {*} context_ 
+     * @param {*} callback_ 
      */
     animate(context_) {
         // console.log("[View.animate]")
@@ -53,11 +49,7 @@ class View {
     }
     
     /**
-     * Animate candies shrinking. When there is no more animation, it calls the
-     * gameEventsHandler from the Controller.
      * 
-     * @param {*} context_ The context on which to draw
-     * @param {*} removedCandies_ Array of removed candies
      */
     shrinkAnimation(context_, removedCandies_) {
         // console.log("[View.shrinkAnimation]: ", removedCandies_)
@@ -73,28 +65,35 @@ class View {
     }
 
     /**
-     * @return true if at least one candy is shrinking, false otherwise
-     * @param {*} removedCandies_ Array of removed candies
+     * 
+     * @param {*} removedCandies_ 
      */
     isShrinking(removedCandies_) {
         for(let rc of removedCandies_) {
             var [row, col, nb_elt, orientation] = rc
             if(orientation === 'h') {
                 for(let i=0; i<nb_elt; i++) {
-                    if(this.grid[row][col+i].isShrinking()) return true
+                    if(this.grid[row][col+i].isShrinking()) {
+                        // console.log("[View.isShrinking]: true")
+                        return true
+                    }
                 }
             } else {
                 for(let i=0; i<nb_elt; i++) {
-                    if(this.grid[row+i][col].isShrinking()) return true
+                    if(this.grid[row+i][col].isShrinking()) {
+                        // console.log("[View.isShrinking]: true")
+                        return true
+                    }
                 }
             }
         }
+        // console.log("[View.isShrinking]: false")
         return false;
     }
 
     /**
-     * Shrink all candies in the given array.
-     * @param {*} removedCandies_ Array of removed candies
+     * 
+     * @param {*} removedCandies_ 
      */
     shrink(removedCandies_) {
         // console.log("[View.shrink]: ")
@@ -113,7 +112,7 @@ class View {
     }
 
     /**
-     * swap two boxes in the view
+     * intervertit deux cases dans la vue
      * @param {*} x1_ 
      * @param {*} y1_ 
      * @param {*} x2_ 
@@ -129,22 +128,16 @@ class View {
         sprite2.moveTo(y1_ * this.spriteSize, x1_ * this.spriteSize)
     }
     
-    /**
-     * Create a new sprite with the given information.
-     * @param {*} x_ 
-     * @param {*} y_ 
-     * @param {*} obj_ 
-     */
     createSprite(x_, y_, obj_) {
         let sprite = new Sprite(obj_, this.spriteSize, this.spriteSize)
         this.grid[x_][y_] = sprite
         let x = x_ - this.grid.length
-        sprite.position(y_ * this.spriteSize, x * this.spriteSize)
+        sprite.position(y_ * this.spriteSize, -x * this.spriteSize)
         sprite.moveTo(y_ * this.spriteSize, x_ * this.spriteSize)
     }
 
     /**
-     * Select or unselect a sprite.
+     * 
      * @param {*} x_ 
      * @param {*} y_ 
      * @param {*} selected_ 
@@ -154,8 +147,8 @@ class View {
     }
 
     /**
-     * Clear and draw all candies in the view
-     * @param {*} context_ The context on which to draw
+     * 
+     * @param {*} context_ 
      */
     drawAll(context_) {
         // console.log("[View.drawAll]")
@@ -170,7 +163,7 @@ class View {
     }
 
     /**
-     * update all the candies (in movement)
+     * 
      */
     updateAll() {
         // console.log("[View.updateAll]")

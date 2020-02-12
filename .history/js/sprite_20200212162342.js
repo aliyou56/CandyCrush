@@ -33,6 +33,7 @@ class Sprite {
      * @param {*} x_ 
      * @param {*} y_ 
      */
+    // Position the sprite at the given position (x_, y_) on the grid
     position(x_, y_) {
         this.x = x_; this.y = y_
         this.toX = x_; this.toY = y_
@@ -95,7 +96,9 @@ class Sprite {
      * is not greater than 0), false otherwise.
      */
     isShrinking() {
-        return (this.width > 0 && this.height > 0)
+        return ( //(this.x != this.toX || this.y != this.toY) &&
+                  this.width > 0 && this.height > 0 
+                )
     }
 
     /**

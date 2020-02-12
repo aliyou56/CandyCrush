@@ -1,11 +1,11 @@
 /**
- * The Model of the candy crush game.
+ * 
  */
 class Model {
 
     /**
-     * Constructor with the size of the grid.
-     * @param {*} gridSize_ The size of the grid. (n*n)
+     * 
+     * @param {*} gridSize_ 
      */
     constructor(gridSize_) {
         this.score = 0
@@ -15,8 +15,7 @@ class Model {
     }
 
     /**
-     * Initialize the grid with random number
-     * @return A two dimensional array of random number between 1 to 5. 
+     * 
      */
     init() {
         // console.log("Model -> init")
@@ -33,14 +32,14 @@ class Model {
     }
 
     /**
-     * @return A random number between 1 to 5.
+     * 
      */
     getRandom() {
         return Math.floor((Math.random() * 5) +1)
     }
 
     /**
-     * Swap two cases of the grid.
+     * 
      * @param {*} x1_ 
      * @param {*} y1_ 
      * @param {*} x2_ 
@@ -61,11 +60,11 @@ class Model {
         if(arrToBeRemoved_.length > 0) {
             for(let e of arrToBeRemoved_) {
                 var [row, col, count, orientation] = e
-                if(orientation === 'h') { // horizontal alignment
+                if(orientation === 'h') {
                     for(let i=0; i<count; i++) {
                         this.grid[row][col+i] = -1
                     }
-                } else { // vertical alignment
+                } else { // vertical
                     for(let i=0; i<count; i++) {
                         this.grid[row+i][col] = -1
                     }
@@ -84,6 +83,7 @@ class Model {
      */
     isAlignmentExist() {
         for(let i=0; i<this.gridSize; i++) {
+            // horizontal
             for(let j=0; j<(this.gridSize-2); j++) {
                 let k1 = j+1; let k2 = j+1 
                 let counterHorizontal = 1; let counterVertical = 1
@@ -112,10 +112,12 @@ class Model {
     allAlignments() {
         let result = []
         for(let i=0; i<this.gridSize; i++) {
-            for(let j=0; j<(this.gridSize-2); j++) { // find horizontal alignments 
+            // horizontal
+            for(let j=0; j<(this.gridSize-2); j++) {
                 let k = j+1 
                 let counter = 1
-                while(  k<this.gridSize && this.grid[i][j] != -1  && this.grid[i][j] === this.grid[i][k] ) {
+                while(  k<this.gridSize && this.grid[i][j] != -1
+                    && this.grid[i][j] === this.grid[i][k] ) {
                     k++; counter++
                 }
                 if(counter >= 3) {
@@ -123,10 +125,12 @@ class Model {
                     j += counter-1
                 }
             }
-            for(let j=0; j<(this.gridSize-2); j++) {  // find vertical alignments 
+            // vertical
+            for(let j=0; j<(this.gridSize-2); j++) {
                 let k = j+1 
                 let counter = 1
-                while( k<this.gridSize && this.grid[j][i] != -1 && this.grid[j][i] === this.grid[k][i] ) {
+                while( k<this.gridSize && this.grid[j][i] != -1 
+                    && this.grid[j][i] === this.grid[k][i] ) {
                     k++; counter++
                 }
                 if(counter >= 3) {

@@ -1,3 +1,4 @@
+
 window.onload = function() {
 
     /**
@@ -12,6 +13,8 @@ window.onload = function() {
     images_src = ["images/Blue.png", "images/Green.png", "images/Orange.png", "images/Red.png", "images/Yellow.png"]
     nbImages = images_src.length
     images = images_src.map(loadImage)
+    //images = []
+    //images_src.foreach( (src) => { images.push(loadImage(src)) } )
 
     function loadImage(src_) {
         var img = new Image()
@@ -31,17 +34,13 @@ window.onload = function() {
         }
     }, 0)
 
-    document.addEventListener("click", onClick);
-}
-
-/**
- * Capture user click
- * @param {*} event 
- */
-function onClick(event) { 
-    if (event.target.id == "canvas") {
-        let x = event.pageX - event.target.offsetLeft;
-        let y = event.pageY - event.target.offsetTop;
-        game.click(x,y)
+    function onclick(event) { 
+        if (event.target.id == "canvas") {
+            let x = event.pageX - event.target.offsetLeft;
+            let y = event.pageY - event.target.offsetTop;
+            game.click(x,y)
+        }
     }
+
+    document.addEventListener("click", onclick);
 }

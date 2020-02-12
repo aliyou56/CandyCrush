@@ -144,7 +144,7 @@ class View {
     }
 
     /**
-     * Select or unselect a sprite.
+     * 
      * @param {*} x_ 
      * @param {*} y_ 
      * @param {*} selected_ 
@@ -154,8 +154,8 @@ class View {
     }
 
     /**
-     * Clear and draw all candies in the view
-     * @param {*} context_ The context on which to draw
+     * 
+     * @param {*} context_ 
      */
     drawAll(context_) {
         // console.log("[View.drawAll]")
@@ -170,7 +170,7 @@ class View {
     }
 
     /**
-     * update all the candies (in movement)
+     * 
      */
     updateAll() {
         // console.log("[View.updateAll]")

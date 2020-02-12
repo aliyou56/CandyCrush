@@ -78,14 +78,10 @@ class Controller {
     /** 
      * This method handle all game events. It's called after every
      * animation such as moving or shrinking animations.
-     * If there is an alignment, it launch the animation of shrinking 
-     * and explode alignments found in the model.
-     * If no alignment is found, it repack column and grid if the
-     * grid is not full.
      */
     gameEventHandler(context_) {
         // console.log("[controller.gameEventHandler]")
-        document.removeEventListener("click", onClick)
+        document.removeEventListener("click", onclick)
 
         if(this.model.isAlignmentExist()) {
 
@@ -115,7 +111,7 @@ class Controller {
                     initializing = false
                     this.model.startScoring = true
                 }
-                document.addEventListener("click", onClick)
+                document.addEventListener("click", onclick)
             }
 
         }

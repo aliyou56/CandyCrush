@@ -1,13 +1,8 @@
 /**
- * The view of the candy crush game.
+ * 
  */
 class View {
 
-    /**
-     * Constructor with the size of the sprite and the controller
-     * @param {*} spriteSize_ The size of the sprite
-     * @param {*} controller_ The controller (allow to callback the gameEventsHandler)
-     */
     constructor(spriteSize_, controller_) {
         this.spriteSize = spriteSize_
         this.controller = controller_
@@ -35,10 +30,9 @@ class View {
     }
 
     /**
-     * Animate all candies in the grid. When there is no more animation, it calls the
-     * gameEventsHandler from the Controller.
-     * 
-     * @param {*} context_ The context on which to draw
+     * anime les bonbons et quand c'est terminé, appelle le contrôleur
+     * @param {*} context_ 
+     * @param {*} callback_ 
      */
     animate(context_) {
         // console.log("[View.animate]")
@@ -46,18 +40,14 @@ class View {
         this.drawAll(context_)
         if(this.isMoving()) {
             var that = this
-            setTimeout(() => {that.animate(context_)}, 10)
+            setTimeout(() => {that.animate(context_)}, 100)
         } else {
             this.controller.gameEventHandler(context_)
         }
     }
     
     /**
-     * Animate candies shrinking. When there is no more animation, it calls the
-     * gameEventsHandler from the Controller.
      * 
-     * @param {*} context_ The context on which to draw
-     * @param {*} removedCandies_ Array of removed candies
      */
     shrinkAnimation(context_, removedCandies_) {
         // console.log("[View.shrinkAnimation]: ", removedCandies_)
@@ -73,28 +63,35 @@ class View {
     }
 
     /**
-     * @return true if at least one candy is shrinking, false otherwise
-     * @param {*} removedCandies_ Array of removed candies
+     * 
+     * @param {*} removedCandies_ 
      */
     isShrinking(removedCandies_) {
         for(let rc of removedCandies_) {
             var [row, col, nb_elt, orientation] = rc
             if(orientation === 'h') {
                 for(let i=0; i<nb_elt; i++) {
-                    if(this.grid[row][col+i].isShrinking()) return true
+                    if(this.grid[row][col+i].isShrinking()) {
+                        // console.log("[View.isShrinking]: true")
+                        return true
+                    }
                 }
             } else {
                 for(let i=0; i<nb_elt; i++) {
-                    if(this.grid[row+i][col].isShrinking()) return true
+                    if(this.grid[row+i][col].isShrinking()) {
+                        // console.log("[View.isShrinking]: true")
+                        return true
+                    }
                 }
             }
         }
+        // console.log("[View.isShrinking]: false")
         return false;
     }
 
     /**
-     * Shrink all candies in the given array.
-     * @param {*} removedCandies_ Array of removed candies
+     * 
+     * @param {*} removedCandies_ 
      */
     shrink(removedCandies_) {
         // console.log("[View.shrink]: ")
@@ -113,7 +110,7 @@ class View {
     }
 
     /**
-     * swap two boxes in the view
+     * intervertit deux cases dans la vue
      * @param {*} x1_ 
      * @param {*} y1_ 
      * @param {*} x2_ 
@@ -121,20 +118,18 @@ class View {
      */
     swap(x1_, y1_, x2_, y2_) {
         // console.log("[view.swap]")
-        let sprite1 = this.grid[x1_][y1_]
-        let sprite2 = this.grid[x2_][y2_]
-        this.grid[x1_][y1_] = sprite2
-        this.grid[x2_][y2_] = sprite1
-        sprite1.moveTo(y2_ * this.spriteSize, x2_ * this.spriteSize)
-        sprite2.moveTo(y1_ * this.spriteSize, x1_ * this.spriteSize)
+        let gridX1 = Math.floor(x1_ / this.spriteSize)
+        let gridY1 = Math.floor(y1_ / this.spriteSize)
+        let gridX2 = Math.floor(x2_ / this.spriteSize)
+        let gridY2 = Math.floor(y2_ / this.spriteSize)
+        let sprite1 = this.grid[gridY1][gridX1]
+        let sprite2 = this.grid[gridY2][gridX2]
+        this.grid[gridY1][gridX1] = sprite2
+        this.grid[gridY2][gridX2] = sprite1
+        sprite1.moveTo(gridX2 * this.spriteSize, gridY2 * this.spriteSize)
+        sprite2.moveTo(gridX1 * this.spriteSize, gridY1 * this.spriteSize)
     }
     
-    /**
-     * Create a new sprite with the given information.
-     * @param {*} x_ 
-     * @param {*} y_ 
-     * @param {*} obj_ 
-     */
     createSprite(x_, y_, obj_) {
         let sprite = new Sprite(obj_, this.spriteSize, this.spriteSize)
         this.grid[x_][y_] = sprite
@@ -144,7 +139,7 @@ class View {
     }
 
     /**
-     * Select or unselect a sprite.
+     * 
      * @param {*} x_ 
      * @param {*} y_ 
      * @param {*} selected_ 
@@ -154,8 +149,8 @@ class View {
     }
 
     /**
-     * Clear and draw all candies in the view
-     * @param {*} context_ The context on which to draw
+     * 
+     * @param {*} context_ 
      */
     drawAll(context_) {
         // console.log("[View.drawAll]")
@@ -170,7 +165,7 @@ class View {
     }
 
     /**
-     * update all the candies (in movement)
+     * 
      */
     updateAll() {
         // console.log("[View.updateAll]")

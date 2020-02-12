@@ -5,7 +5,7 @@
  * to update itself or to draw itself in a context.
  */
 class Sprite {
-        
+
     /**
      * Constructor with type of the sprite, the width anf the height
      * @param {*} obj_ The type of the sprite
@@ -24,8 +24,8 @@ class Sprite {
         this.toX = 0
         this.toY = 0
 
-        this._updateOffset = 5
-        this._shrinkStep = 1
+        this._updateOffset = 5//this.width
+        this._shrinkStep = 2
     }
 
     /**
@@ -33,6 +33,7 @@ class Sprite {
      * @param {*} x_ 
      * @param {*} y_ 
      */
+    // Position the sprite at the given position (x_, y_) on the grid
     position(x_, y_) {
         this.x = x_; this.y = y_
         this.toX = x_; this.toY = y_
@@ -95,7 +96,9 @@ class Sprite {
      * is not greater than 0), false otherwise.
      */
     isShrinking() {
-        return (this.width > 0 && this.height > 0)
+        return ( //(this.x != this.toX || this.y != this.toY) &&
+                  this.width > 0 && this.height > 0 
+                )
     }
 
     /**

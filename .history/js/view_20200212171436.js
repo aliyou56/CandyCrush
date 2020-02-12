@@ -89,12 +89,13 @@ class View {
                 }
             }
         }
+        // console.log("[View.isShrinking]: false")
         return false;
     }
 
     /**
-     * Shrink all candies in the given array.
-     * @param {*} removedCandies_ Array of removed candies
+     * 
+     * @param {*} removedCandies_ 
      */
     shrink(removedCandies_) {
         // console.log("[View.shrink]: ")
@@ -113,7 +114,7 @@ class View {
     }
 
     /**
-     * swap two boxes in the view
+     * intervertit deux cases dans la vue
      * @param {*} x1_ 
      * @param {*} y1_ 
      * @param {*} x2_ 
@@ -130,7 +131,7 @@ class View {
     }
     
     /**
-     * Create a new sprite with the given information.
+     * 
      * @param {*} x_ 
      * @param {*} y_ 
      * @param {*} obj_ 
@@ -144,7 +145,7 @@ class View {
     }
 
     /**
-     * Select or unselect a sprite.
+     * 
      * @param {*} x_ 
      * @param {*} y_ 
      * @param {*} selected_ 
@@ -154,8 +155,8 @@ class View {
     }
 
     /**
-     * Clear and draw all candies in the view
-     * @param {*} context_ The context on which to draw
+     * 
+     * @param {*} context_ 
      */
     drawAll(context_) {
         // console.log("[View.drawAll]")
@@ -170,7 +171,7 @@ class View {
     }
 
     /**
-     * update all the candies (in movement)
+     * 
      */
     updateAll() {
         // console.log("[View.updateAll]")

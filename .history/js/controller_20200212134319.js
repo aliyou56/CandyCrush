@@ -1,15 +1,10 @@
 /**
- * The controller of the candy crush game
+ * 
  */
 class Controller {
 
     /**
-     * Constructor with the size of the grid, the size of a sprite
-     * and the context for drawing.
      * 
-     * @param {*} gridSize_ The size of the grid (model)
-     * @param {*} spriteSize_ The size of a sprite
-     * @param {*} context_ The context
      */
     constructor(gridSize_, spriteSize_, context_) {
         canvas.width = context.width = gridSize_ * spriteSize_;
@@ -22,26 +17,28 @@ class Controller {
         this.view.drawAll(this.context)
 
         this.isFirstClick = true
-        this.selectedSprite = {}
+        this.selectedPosition = {}
 
         this.gameEventHandler(this.context) // start the game
     }
 
     /**
-     * called when a click event has been detected on the gird.
+     * 
      */
     click(x_, y_) {
         // console.log("click("+x_+", "+y_+"), isFirstClick:" +this.isFirstClick)
         let y = Math.floor(x_ / this.view.spriteSize)
         let x = Math.floor(y_ / this.view.spriteSize)  
         if(this.isFirstClick) { // first selection 
+            // console.log("first click")
             this.isFirstClick = false;
-            this.selectedSprite.x = x; this.selectedSprite.y = y
+            this.selectedPosition.x = x
+            this.selectedPosition.y = y
             this.view.selected(x, y, true)
             this.view.drawAll(context)
         } else { // second selection
 
-            function areNeighbors(x1_, y1_, x2_, y2_) {
+            function isNeighbor(x1_, y1_, x2_, y2_) {
                 if(x1_ === x2_ && y1_ === y2_) {
                     return false
                 }
@@ -52,25 +49,23 @@ class Controller {
             }
 
             this.isFirstClick = true
-            this.view.selected(this.selectedSprite.x, this.selectedSprite.y, false)
-            if( areNeighbors(x, y, this.selectedSprite.x, this.selectedSprite.y) ) {
-                this.model.swap(x, y, this.selectedSprite.x, this.selectedSprite.y)
-                if(this.model.isAlignmentExist()) {
-                    this.view.swap(x, y, this.selectedSprite.x, this.selectedSprite.y)
-                    this.view.animate(this.context)
+            if( isNeighbor(x, y, this.selectedPosition.x, this.selectedPosition.y) ) {
+                this.model.swap(x, y, this.selectedPosition.x, this.selectedPosition.y)
+                if(!this.model.isAlignmentExist()) {
+                    this.model.swap(x, y, this.selectedPosition.x, this.selectedPosition.y)
+                    this.view.selected(this.selectedPosition.x, this.selectedPosition.y, false)
+                    this.view.drawAll(context)
                 } else {
-                    this.model.swap(x, y, this.selectedSprite.x, this.selectedSprite.y)
-                    this.view.drawAll(this.context)
+                    this.view.swap(x, y, this.selectedPosition.x, this.selectedPosition.y)
+                    this.view.animate(context)
                 }
             } else {
-                this.view.drawAll(this.context)
+                this.view.selected(this.selectedPosition.x, this.selectedPosition.y, false)
+                this.view.drawAll(context)
             }
         }
     }
 
-    /**
-     * Update the score.
-     */
     updateScore() {
         document.getElementById("score").innerHTML = "Score: " + this.model.score
     }
@@ -78,14 +73,10 @@ class Controller {
     /** 
      * This method handle all game events. It's called after every
      * animation such as moving or shrinking animations.
-     * If there is an alignment, it launch the animation of shrinking 
-     * and explode alignments found in the model.
-     * If no alignment is found, it repack column and grid if the
-     * grid is not full.
      */
     gameEventHandler(context_) {
         // console.log("[controller.gameEventHandler]")
-        document.removeEventListener("click", onClick)
+        document.removeEventListener("click", onclick)
 
         if(this.model.isAlignmentExist()) {
 
@@ -105,7 +96,7 @@ class Controller {
                     isGridNotFull = true
                 }
             } 
-            
+            // console.log("[controller.gameEventHandler]: isGridNotFull=", isGridNotFull)
             if(isGridNotFull) {
                 this.view.syncWithModel(this.model)
                 this.repackGrid()
@@ -115,7 +106,7 @@ class Controller {
                     initializing = false
                     this.model.startScoring = true
                 }
-                document.addEventListener("click", onClick)
+                document.addEventListener("click", onclick)
             }
 
         }

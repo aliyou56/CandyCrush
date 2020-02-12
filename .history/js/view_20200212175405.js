@@ -42,6 +42,7 @@ class View {
      */
     animate(context_) {
         // console.log("[View.animate]")
+        document.removeEventListener("click", onclick)
         this.updateAll()
         this.drawAll(context_)
         if(this.isMoving()) {

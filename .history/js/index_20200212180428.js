@@ -31,17 +31,13 @@ window.onload = function() {
         }
     }, 0)
 
-    document.addEventListener("click", onClick);
-}
-
-/**
- * Capture user click
- * @param {*} event 
- */
-function onClick(event) { 
-    if (event.target.id == "canvas") {
-        let x = event.pageX - event.target.offsetLeft;
-        let y = event.pageY - event.target.offsetTop;
-        game.click(x,y)
+    function onClick(event) { 
+        if (event.target.id == "canvas") {
+            let x = event.pageX - event.target.offsetLeft;
+            let y = event.pageY - event.target.offsetTop;
+            game.click(x,y)
+        }
     }
+
+    document.addEventListener("click", onClick);
 }

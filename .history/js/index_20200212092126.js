@@ -1,17 +1,21 @@
+
 window.onload = function() {
 
-    /**
-     * indicates wether the initialization is finished or not.
-     * The scoring rely on it. It starts only after the initialization.  
-     */
-    initializing = true 
-
+    // global variable
     canvas = document.getElementById("canvas")
     context = canvas.getContext("2d");
+    /**
+     * 
+     */
+    initializing = true
 
     images_src = ["images/Blue.png", "images/Green.png", "images/Orange.png", "images/Red.png", "images/Yellow.png"]
     nbImages = images_src.length
-    images = images_src.map(loadImage)
+    images = []
+    
+    for(let src of images_src) {
+        images.push(loadImage(src))
+    }
 
     function loadImage(src_) {
         var img = new Image()
@@ -31,17 +35,13 @@ window.onload = function() {
         }
     }, 0)
 
-    document.addEventListener("click", onClick);
-}
-
-/**
- * Capture user click
- * @param {*} event 
- */
-function onClick(event) { 
-    if (event.target.id == "canvas") {
-        let x = event.pageX - event.target.offsetLeft;
-        let y = event.pageY - event.target.offsetTop;
-        game.click(x,y)
+    function onclick(event) { 
+        if (event.target.id == "canvas") {
+            let x = event.pageX - event.target.offsetLeft;
+            let y = event.pageY - event.target.offsetTop;
+            game.click(x,y)
+        }
     }
+
+    document.addEventListener("click", onclick);
 }

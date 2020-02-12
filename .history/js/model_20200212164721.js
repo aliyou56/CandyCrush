@@ -115,7 +115,8 @@ class Model {
             for(let j=0; j<(this.gridSize-2); j++) { // find horizontal alignments 
                 let k = j+1 
                 let counter = 1
-                while(  k<this.gridSize && this.grid[i][j] != -1  && this.grid[i][j] === this.grid[i][k] ) {
+                while(  k<this.gridSize && this.grid[i][j] != -1
+                    && this.grid[i][j] === this.grid[i][k] ) {
                     k++; counter++
                 }
                 if(counter >= 3) {
@@ -126,7 +127,8 @@ class Model {
             for(let j=0; j<(this.gridSize-2); j++) {  // find vertical alignments 
                 let k = j+1 
                 let counter = 1
-                while( k<this.gridSize && this.grid[j][i] != -1 && this.grid[j][i] === this.grid[k][i] ) {
+                while( k<this.gridSize && this.grid[j][i] != -1 
+                    && this.grid[j][i] === this.grid[k][i] ) {
                     k++; counter++
                 }
                 if(counter >= 3) {
