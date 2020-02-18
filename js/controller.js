@@ -88,11 +88,6 @@ class Controller {
         } else {
             callback()
         }
-        document.addEventListener("click", onClick)
-
-        function updateScore() {
-           document.getElementById("score").innerHTML = "Score: " + that.model.score
-        }
 
         function callback() {
             if(that.model.isAlignmentExist()) {
@@ -121,8 +116,13 @@ class Controller {
                         initializing = false
                         that.model.startScoring = true
                     }
+                    document.addEventListener("click", onClick)
                 }
             }
+        }
+
+        function updateScore() {
+            document.getElementById("score").innerHTML = "Score: " + that.model.score
         }
     }
 
