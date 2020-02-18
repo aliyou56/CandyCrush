@@ -8,9 +8,8 @@ class View {
      * @param {*} spriteSize_ The size of the sprite
      * @param {*} controller_ The controller (allow to callback the gameEventsHandler)
      */
-    constructor(spriteSize_, controller_) {
+    constructor(spriteSize_) {
         this.spriteSize = spriteSize_
-        this.controller = controller_
         this.grid = new Array()
     }
 
@@ -40,15 +39,15 @@ class View {
      * 
      * @param {*} context_ The context on which to draw
      */
-    animate(context_) {
+    animate(context_, callback_) {
         // console.log("[View.animate]")
         this.updateAll()
         this.drawAll(context_)
         if(this.isMoving()) {
             var that = this
-            setTimeout(() => {that.animate(context_)}, 10)
+            setTimeout(() => { that.animate(context_, callback_) }, 10)
         } else {
-            this.controller.gameEventHandler(context_)
+            callback_()
         }
     }
     
@@ -59,16 +58,18 @@ class View {
      * @param {*} context_ The context on which to draw
      * @param {*} removedCandies_ Array of removed candies
      */
-    shrinkAnimation(context_, removedCandies_) {
+    shrinkAnimation(context_, removedCandies_, callback_, updateScore_) {
         // console.log("[View.shrinkAnimation]: ", removedCandies_)
         this.shrink(removedCandies_)
         this.drawAll(context_)
-        this.controller.updateScore()
+        updateScore_()
         if(this.isShrinking(removedCandies_)) {
-            let that = this
-            setTimeout(() => { that.shrinkAnimation(context_, removedCandies_), 1000 } )
+            var that = this
+            setTimeout(() => { 
+                that.shrinkAnimation(context_, removedCandies_, callback_, updateScore_),
+                1000 } )
         } else {
-            this.controller.gameEventHandler(context_)
+            callback_()
         }
     }
 

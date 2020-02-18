@@ -17,12 +17,13 @@ class Controller {
         this.context = context_
 
         this.model = new Model(gridSize_)
-        this.view = new View(spriteSize_, this)
+        this.view = new View(spriteSize_)
         this.view.syncWithModel(this.model)
         this.view.drawAll(this.context)
 
         this.isFirstClick = true
         this.selectedSprite = {}
+        this.isSwap = false
 
         this.gameEventHandler(this.context) // start the game
     }
@@ -57,7 +58,9 @@ class Controller {
                 this.model.swap(x, y, this.selectedSprite.x, this.selectedSprite.y)
                 if(this.model.isAlignmentExist()) {
                     this.view.swap(x, y, this.selectedSprite.x, this.selectedSprite.y)
-                    this.view.animate(this.context)
+                    this.isSwap = true
+                    this.gameEventHandler(this.context)
+                    this.isSwap = false
                 } else {
                     this.model.swap(x, y, this.selectedSprite.x, this.selectedSprite.y)
                     this.view.drawAll(this.context)
@@ -68,13 +71,6 @@ class Controller {
         }
     }
 
-    /**
-     * Update the score.
-     */
-    updateScore() {
-        document.getElementById("score").innerHTML = "Score: " + this.model.score
-    }
-    
     /** 
      * This method handle all game events. It's called after every
      * animation such as moving or shrinking animations.
@@ -86,38 +82,47 @@ class Controller {
     gameEventHandler(context_) {
         // console.log("[controller.gameEventHandler]")
         document.removeEventListener("click", onClick)
-
-        if(this.model.isAlignmentExist()) {
-
-            let alignments = this.model.allAlignments()
-            if(alignments.length > 0) {
-                this.view.shrinkAnimation(context_, alignments)
-                this.model.explode(alignments)
-            } else {
-                this.view.syncWithModel(this.model)
-            }
-
+        var that = this
+        if(that.isSwap) {
+            that.view.animate(context_, callback)
         } else {
+            callback()
+        }
+        document.addEventListener("click", onClick)
 
-            let isGridNotFull = false
-            for(let col=0; col<this.model.grid[0].length; col++) {
-                if(this.repackColumn(col)) {
-                    isGridNotFull = true
+        function updateScore() {
+           document.getElementById("score").innerHTML = "Score: " + that.model.score
+        }
+
+        function callback() {
+            if(that.model.isAlignmentExist()) {
+
+                let alignments = that.model.allAlignments()
+                if(alignments.length > 0) {
+                    that.view.shrinkAnimation(context_, alignments, callback, updateScore)
+                    that.model.explode(alignments)
+                } else {
+                    that.view.syncWithModel(that.model)
                 }
-            } 
-            
-            if(isGridNotFull) {
-                this.view.syncWithModel(this.model)
-                this.repackGrid()
-                this.view.animate(context_)
             } else {
-                if(initializing) {
-                    initializing = false
-                    this.model.startScoring = true
+                let isGridNotFull = false
+                for(let col=0; col<that.model.grid[0].length; col++) {
+                    if(that.repackColumn(col)) {
+                        isGridNotFull = true
+                    }
+                } 
+                
+                if(isGridNotFull) {
+                    that.view.syncWithModel(that.model)
+                    that.repackGrid()
+                    that.view.animate(context_, callback)
+                } else {
+                    if(initializing) {
+                        initializing = false
+                        that.model.startScoring = true
+                    }
                 }
-                document.addEventListener("click", onClick)
             }
-
         }
     }
 
